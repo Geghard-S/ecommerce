@@ -10,7 +10,7 @@ import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 
 function PlaceOrderScreen({history}) {
     const orderCreate = useSelector(state => state.orderCreate)
-    const {order,error,success} = orderCreate
+    const { order, error, success } = orderCreate
     const dispatch = useDispatch()
 
     const cart = useSelector(state => state.cart)
@@ -21,16 +21,16 @@ function PlaceOrderScreen({history}) {
     cart.taxPrice = Number((0.082) * cart.itemsPrice).toFixed(2)
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
 
-    if (cart.paymentMethod) {
+    if (!cart.paymentMethod) {
         history.push('/payment')
     }
 
     useEffect(() => {
         if (success) {
             history.push(`/order/${order._id}`)
-            dispatch({ type: ORDER_CREATE_RESET })
+            dispatch({ type: ORDER_CREATE_RESET });
         }
-    }, [success, history])
+      }, [dispatch, order, success, history]);
 
     const placeOrder = () => {
         dispatch(createOrder({

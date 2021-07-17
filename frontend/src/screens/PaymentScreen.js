@@ -6,11 +6,9 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import { savePaymentMethod } from '../actions/cartActions'
 
 function PaymentScreen({history}) {
-
     const cart = useSelector(state => state.cart)
-    const {shippingAddress} = cart
+    const { shippingAddress } = cart
     const dispatch = useDispatch()
-
     const [paymentMethod, setPaymentMethod] = useState('PayPal')
 
     if (!shippingAddress.address) {
@@ -19,7 +17,7 @@ function PaymentScreen({history}) {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        //dispatch(savePaymentMethod(paymentMethod))
+        dispatch(savePaymentMethod(paymentMethod))
         history.push('/placeorder')
     }
 
@@ -33,21 +31,20 @@ function PaymentScreen({history}) {
                     <Col>
                         <Form.Check
                             type='radio'
-                            label='Paypal/Credit Card'
+                            label='PayPal or Credit Card'
                             id='paypal'
-                            name='paymentmethod'
+                            name='paymentMethod'
                             checked
                             onChange={(e) => setPaymentMethod(e.target.value)}
-                            >
+                        >
 
                         </Form.Check>
                     </Col>
                 </Form.Group>
 
-                <Button type='submit' varient='primary'>
+                <Button type='submit' variant='primary'>
                     Continue
                 </Button>
-
             </Form>
         </FormContainer>
     )

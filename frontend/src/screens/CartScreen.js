@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
-import { addToCart, removeFormCart} from '../actions/cartActions'
+import { addToCart, removeFromCart} from '../actions/cartActions'
 
 
 function CartScreen({ match, location, history }) {
@@ -15,19 +15,20 @@ function CartScreen({ match, location, history }) {
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
 
-    useEffect(() =>{
-        if(productId){
+    useEffect(() => {
+        if (productId) {
             dispatch(addToCart(productId, qty))
         }
     }, [dispatch, productId, qty])
 
-    const removeFormCartHandler = (id) => {
-        dispatch(removeFormCart(id))
+    const removeFromCartHandler = (id) => {
+        dispatch(removeFromCart(id))
     }
 
     const checkoutHandler = () => {
         history.push('/login?redirect=shipping')
     }
+    
     return (
         <Row>
             <Col md={8}>
@@ -71,7 +72,7 @@ function CartScreen({ match, location, history }) {
                                         <Button
                                             type='button'
                                             variant='light'
-                                            onClick={() => removeFormCartHandler(item.product)}
+                                            onClick={() => removeFromCartHandler(item.product)}
                                         >
                                             <i className='fas fa-trash'></i>
                                         </Button>
@@ -96,7 +97,7 @@ function CartScreen({ match, location, history }) {
                             type='button'
                             className='btn-block'
                             disabled={cartItems.length === 0}
-                            onCLick={checkoutHandler}
+                            onClick={checkoutHandler}
                         >
                             Proceed To Checkout
                         </Button>

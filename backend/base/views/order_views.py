@@ -7,11 +7,10 @@ from base.serializers import ProductSerializer, OrderSerializer
 from rest_framework import status
 
 @api_view(['POST'])
-@permission_classes(['IsAuthenticated'])
+@permission_classes([IsAuthenticated])
 def addOrderItems(request):
     user = request.user
     data = request.data
-
     orderItems = data['orderItems']
 
     if orderItems and len(orderItems) == 0:
@@ -45,23 +44,23 @@ def addOrderItems(request):
                 image=product.image.url,
             )
 
-        product.countInStock -= item.qty
-        product.save()
+            product.countInStock -= item.qty
+            product.save()
 
-    serializer = OrderSerializer(order, many=True)
-    return Response('ORDER')
+        serializer = OrderSerializer(order, many=False)
+        return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes(['IsAuthenticated'])
+@permission_classes([IsAuthenticated])
 def getOrderById(request, pk):
     user = request.user
     try:
-        order = order.objects.get(_id=pk)
+        order = Order.objects.get(_id=pk)
         if user.is_staff or order.user == user:
-            serializer = orderSerializer(order, many=False)
+            serializer = OrderSerializer(order, many=False)
             return Response(serializer.data)
-        else: Response({'detail':'Not authorized'},
-                        status=status.HTTP_400_BAD_REQUEST)
+        else:
+            Response({'detail': 'Not authorized'}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({'detail':'Order does not exists'}, status=status.HTTP_400_BAD_REQUEST)
 
