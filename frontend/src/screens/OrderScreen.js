@@ -13,9 +13,9 @@ function OrderScreen({match}) {
     const dispatch = useDispatch()
     const [sdkReady, setSdkReady] = useState(false)
     const orderDetails = useSelector(state => state.orderDetails)
-    const {order,error,loading} = orderDetails
+    const { order, error, loading } = orderDetails
     const orderPay = useSelector(state => state.orderPay)
-    const {loading:loadingPay,success:successPay} = orderPay
+    const { loading: loadingPay, success: successPay } = orderPay
     // const order = useSelector(state => state.order)
     
     if (!loading && !error){
@@ -27,19 +27,20 @@ function OrderScreen({match}) {
         script.type = 'text/javascript'
         script.src = 'https://www.paypal.com/sdk/js?client-id=Aa32cK4uVEcJXMxRGSm75kEoecIONOHJRAvbQuCw4CLQ7mV8Y_ra3DizxNlyabbNa_hb2voiXy-WRGLI'
         script.async = true
-        script.onload = () =>{
+        script.onload = () => {
             setSdkReady(true)
         }
         document.body.appendChild(script)
     }
     
+    
     useEffect(() => {
         if(!order || successPay || order._id !== Number(orderId)){
             dispatch(getOrderDetails(orderId))
-        }else if(!order.isPaid){
-            if(!window.paypal){
+        } else if (!order.isPaid) {
+            if (!window.paypal) {
                 addPayPalScript()
-            }else{
+            } else {
                 setSdkReady(true)
             }
         }
