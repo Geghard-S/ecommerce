@@ -22,7 +22,7 @@ function UserEditScreen({ match, history }) {
     const { error, loading, user } = userDetails
     const userUpdate = useSelector(state => state.userUpdate)
     const { error: errorUpdate, loading: loadingUpdate, success: successUpdate } = userUpdate
-
+// 
 
     useEffect(() => {
 
@@ -43,6 +43,7 @@ function UserEditScreen({ match, history }) {
     }, [user, userId, successUpdate, history])
 
     const submitHandler = (e) => {
+        console.log('dgsdfgs')
         e.preventDefault()
         dispatch(updateUser({ _id: user._id, name, email, isAdmin }))
     }
