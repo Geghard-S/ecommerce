@@ -37,7 +37,7 @@ class UserSerializerWithToken(UserSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
+        model = Review
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -48,8 +48,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_reviews(self, obj):
         reviews = obj.review_set.all()
-        serializer = ReviewSerializer(reviews, many=true)
-        return serializer
+        serializer = ReviewSerializer(reviews, many=True)
+        return serializer.data
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
@@ -90,3 +90,4 @@ class OrderSerializer(serializers.ModelSerializer):
         user = obj.user
         serializer = UserSerializer(user, many=False)
         return serializer.data
+
