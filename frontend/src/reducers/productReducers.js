@@ -34,7 +34,7 @@ import {
 
         case PRODUCT_LIST_SUCCESS:
             return { loading: false, 
-                products: action.payload}
+                products: action.payload.products, page: action.payload.page, pages: action.payload.pages}
 
         case PRODUCT_LIST_FAIL:
             return { loading: false, error: action.payload }
@@ -97,8 +97,7 @@ export const productCreateReducer = (state = {}, action) => {
     }
 }
 
-
-export const productReviewCreateReducer = (state = { product: {} }, action) => {
+export const productUpdateReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case PRODUCT_UPDATE_REQUEST:
             return { loading: true }
@@ -117,20 +116,19 @@ export const productReviewCreateReducer = (state = { product: {} }, action) => {
     }
 }
 
-
-export const productUpdateReducer = (state = { }, action) => {
+export const productReviewCreateReducer = (state = {}, action) => {
     switch (action.type) {
         case PRODUCT_CREATE_REVIEW_REQUEST:
             return { loading: true }
 
         case PRODUCT_CREATE_REVIEW_SUCCESS:
-            return { loading: false, success: true }
+            return { loading: false, success: true, }
 
         case PRODUCT_CREATE_REVIEW_FAIL:
             return { loading: false, error: action.payload }
 
         case PRODUCT_CREATE_REVIEW_RESET:
-            return { }
+            return {}
 
         default:
             return state
