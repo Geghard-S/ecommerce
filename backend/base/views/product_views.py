@@ -82,6 +82,8 @@ def getProduct(request, pk):
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
 
+    
+
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
 def deleteProduct(request, pk):

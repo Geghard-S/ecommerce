@@ -53,6 +53,16 @@ function ProductEditScreen({ match, history }) {
 
     const submitHandler = (e) => {
         e.preventDefault()
+        dispatch(updateProduct({
+            _id: productId,
+            name,
+            price,
+            image,
+            brand,
+            category,
+            countInStock,
+            description
+        }))
     }
 
     const uploadFileHandler = async (e) => {
