@@ -24,7 +24,6 @@ function HomeScreen({ history }) {
     return (
         <div>
             {!keyword && <ProductCarousel />}
-
             <h1>Latest Products</h1>
             {loading ? <Loader />
                 : error ? <Message variant='danger'>{error}</Message>
@@ -44,4 +43,4 @@ function HomeScreen({ history }) {
     )
 }
 
-export default 
+export default HomeScreen
