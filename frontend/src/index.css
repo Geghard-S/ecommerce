@@ -50,3 +50,14 @@ h3{
     font-size: 2.5vw;
   }
 }
+
+Form{
+  background-color: red;
+  display: inline;
+  width: 50%;
+}
+
+input.form-control{
+  width: 20%;
+  background-color: blue;
+}
